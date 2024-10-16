@@ -9,26 +9,26 @@ const createToken = (id) => {
 }
 const loginUser = async (req, res) => {
     try {
-        const {email,password} = req.body;
-        const user   = await UserModel.findOne({email});
-        if(!user){
-            return res.json({success:false,message:"User doesn't Exists !"})
+        const { email, password } = req.body;
+        const user = await UserModel.findOne({ email });
+        if (!user) {
+            return res.json({ success: false, message: "User doesn't Exists !" })
 
         }
-        const isMatch = await bcrypt.compare(password,user.password);
-        if(isMatch){
-            const token   = createToken(user._id);
-            return res.json({success:true,token:token})
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (isMatch) {
+            const token = createToken(user._id);
+            return res.json({ success: true, token: token })
         }
-        else{
-            return res.json({success:false,message:"Invalid Credetials"})
+        else {
+            return res.json({ success: false, message: "Invalid Credetials" })
         }
 
 
     }
     catch (err) {
         console.log(err);
-        return res.json({success:false,message:"Error Happend While User Login !"})
+        return res.json({ success: false, message: "Error Happend While User Login !" })
 
 
     }
@@ -68,7 +68,19 @@ const registerUser = async (req, res) => {
     }
 
 }
-const adminUser = async (req, red) => {
+const adminUser = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+            const token = jwt.sign(email + password, process.env.JWT_SECRET);
+            return res.json({success:true,token:token})
+        }
+    }
+    catch (err) {
+        console.log(err);
+        return res.json({success:false,message:"Error in admin user Auth !"})
+    }
+
 
 }
 
