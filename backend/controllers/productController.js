@@ -25,7 +25,6 @@ const addProduct = async (req, res) => {
             date: Date.now(),
             images: imageurls
         }
-        console.log(productData)
         const newProduct = new productModel(productData);
         await newProduct.save();
         return res.json({ success: true, message: "Product uploaded Successfully !" })
