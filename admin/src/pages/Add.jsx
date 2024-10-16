@@ -124,16 +124,16 @@ const Add = ({token}) => {
           <div onClick={()=>setSizes((prev=> prev.includes("S")?prev.filter((item)=>item!=="S"):[...prev,"S"]))} >
             <p className={`px-3 py-1 ${sizes.includes("S")?"bg-pink-100":"bg-slate-200"} cursor-pointer`}>S</p>
           </div>
-          <div onClick={()=>setSizes((prev=> prev.includes("S")?prev.filter((item)=>item!=="S"):[...prev,"M"]))}>
+          <div onClick={()=>setSizes((prev=> prev.includes("M")?prev.filter((item)=>item!=="M"):[...prev,"M"]))}>
             <p className={`px-3 py-1 ${sizes.includes("M")?"bg-pink-100":"bg-slate-200"} cursor-pointer`}>M</p>
           </div>
-          <div onClick={()=>setSizes((prev=> prev.includes("S")?prev.filter((item)=>item!=="S"):[...prev,"L"]))}>
+          <div onClick={()=>setSizes((prev=> prev.includes("L")?prev.filter((item)=>item!=="L"):[...prev,"L"]))}>
             <p className={`px-3 py-1 ${sizes.includes("L")?"bg-pink-100":"bg-slate-200"} cursor-pointer`}>L</p>
           </div>
-          <div onClick={()=>setSizes((prev=> prev.includes("S")?prev.filter((item)=>item!=="S"):[...prev,"XL"]))}>
+          <div onClick={()=>setSizes((prev=> prev.includes("XL")?prev.filter((item)=>item!=="XL"):[...prev,"XL"]))}>
             <p className={`px-3 py-1 ${sizes.includes("XL")?"bg-pink-100":"bg-slate-200"} cursor-pointer`}>XL</p>
           </div>
-          <div onClick={()=>setSizes((prev=> prev.includes("S")?prev.filter((item)=>item!=="S"):[...prev,"XXL"]))}>
+          <div onClick={()=>setSizes((prev=> prev.includes("XXL")?prev.filter((item)=>item!=="XXl"):[...prev,"XXL"]))}>
             <p className={`px-3 py-1 ${sizes.includes("XXL")?"bg-pink-100":"bg-slate-200"} cursor-pointer`}>XXL</p>
           </div>
         </div>
