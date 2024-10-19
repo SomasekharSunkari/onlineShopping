@@ -5,7 +5,10 @@ const ProductCard = ({id,name,price,image}) => {
     const {currency} = useContext(ShopContext);
   return (
     <Link className='cursor-pointer text-gray-700' to={`/product/${id}`}>
-        <div className='overflow-hidden'>
+        <div onClick={()=>{window.scrollTo({
+          top:0,
+          behavior:"smooth"
+        })}} className='overflow-hidden'>
             <img className='hover:scale-110 transition ease-in-out' src={image[0]} alt="Product Image" />
         </div>
         <p className='pt-3 pb-1 text-sm'>{name}</p>

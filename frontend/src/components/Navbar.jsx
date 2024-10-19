@@ -5,8 +5,14 @@ import Searchbar from './Searchbar'
 import { ShopContext } from '../context/ShopContext'
 const Navbar = () => {
     const [visible, setVisible] = useState(false)
-    const {setShowSearch,getCartCount} = useContext(ShopContext);
+    const { setShowSearch, getCartCount, token, setToken, setCartItems, navigate } = useContext(ShopContext);
+    const logout = () => {
+        localStorage.removeItem("token")
+        setToken("");
+        setCartItems({});
+        navigate("/login");
 
+    }
     return (
 
         <div className='flex items-center justify-between font-medium py-5'>
@@ -33,27 +39,27 @@ const Navbar = () => {
 
             </ul>
             <div className='flex items-center gap-6'>
-                <img src={assets.search_icon} onClick={()=>setShowSearch(true)} className='w-5 cursor-pointer' />
+                <img src={assets.search_icon} onClick={() => setShowSearch(true)} className='w-5 cursor-pointer' />
                 <div className='group relative'>
-                   <Link to="/login"> <img src={assets.profile_icon} className='w-5  cursor-pointer' /></Link>
-                    <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
+                    <Link to={token ?null:"/login"}> <img src={assets.profile_icon} className='w-5  cursor-pointer' /></Link>
+                   { token && <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
                         <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
                             <p className='hover:cursor-pointer hover:text-black'>Profile</p>
-                            <p className='hover:cursor-pointer hover:text-black'>Orders</p>
-                            <p className='hover:cursor-pointer hover:text-black'>Logout</p>
+                            <p onClick={()=> navigate("/orders")} className='hover:cursor-pointer hover:text-black'>Orders</p>
+                            <p onClick={logout} className='hover:cursor-pointer hover:text-black'>Logout</p>
                         </div>
-                    </div>
+                    </div>}
                 </div>
                 <Link className='relative' to="/cart">
                     <img src={assets.cart_icon} className='w-5 cursor-pointer' />
-                   { getCartCount() > 0 ? <p className='absolute bg-black   w-4 text-white right-[-5px] text-sm text-center bottom-[-5px] leading-4  aspect-square rounded-full text-[8px]'>{getCartCount()}</p>:""}
+                    {getCartCount() > 0 ? <p className='absolute bg-black   w-4 text-white right-[-5px] text-sm text-center bottom-[-5px] leading-4  aspect-square rounded-full text-[8px]'>{getCartCount()}</p> : ""}
                 </Link>
                 <img src={assets.menu_icon} onClick={() => setVisible(true)} className='w-5 sm:hidden cursor-pointer' />
                 {/* Sidebar For Smaller divces */}
                 <div className={`absolute top-0 right-0 bottom-0 bg-white overflow-hidden transition-all ${visible ? "w-full" : "w-0"}`}>
                     <div className='flex flex-col text-gray-500'>
-                        <div className='flex items-center gap-4 p-4 cursor-pointer' onClick={()=>setVisible(false)}>
-                            <img src={assets.dropdown_icon} className='rotate-180 h-4 cursor-pointer' alt='back Icon'/>
+                        <div className='flex items-center gap-4 p-4 cursor-pointer' onClick={() => setVisible(false)}>
+                            <img src={assets.dropdown_icon} className='rotate-180 h-4 cursor-pointer' alt='back Icon' />
                             <p>Back</p>
                         </div>
                         <NavLink className="py-2 pl-6 border" to="/" onClick={() => setVisible(false)}>HOME</NavLink>

@@ -7,9 +7,12 @@ const BestSeller = () => {
     const { products } = useContext(ShopContext)
     const [bestSellers,setBestSelleres ] = useState([]);
     useEffect(()=>{
-        const pro = products.filter(item => item.bestseller)
+        console.log(products)
+        const pro = products.filter(item => item.bestSeller);
+        console.log("pro")
+        console.log(pro)
         setBestSelleres(pro.slice(0,5))
-    },[])
+    },[products])
     // const bestSellers = products.filter(item => item.bestseller === true)
     // console.log(bestSellers)
     return (
@@ -23,7 +26,7 @@ const BestSeller = () => {
             <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 '>
                 {
                     bestSellers.map((item,index )=> (
-                        <ProductCard key={index} id={item._id} name={item.name} price={item.price} image={item.image} />
+                        <ProductCard key={index} id={item._id} name={item.name} price={item.price} image={item.images} />
                     ))
                 }
             </div>

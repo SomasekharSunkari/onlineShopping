@@ -1,21 +1,23 @@
 import { createContext, useEffect, useState } from "react";
-import { products } from "../assets/frontend_assets/assets";
+// import { products } from "../assets/frontend_assets/assets";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 export const ShopContext = createContext();
 
 export const ShopContextProvider = ({ children }) => {
     const currency = "$";
     const deliveryFee = 10;
     const [search, setSearch] = useState("");
+    const backend_url = "http://localhost:4000"
+    const [token,setToken] = useState("");
     const [showSearch, setShowSearch] = useState(false);
+    const [products,setProducts] = useState([]);
     const [cartItems, setCartItems] = useState({});
     const updateQuanity = async (itemId, size, quantity) => {
         let cartData = structuredClone(cartItems);
         cartData[itemId][size] = quantity;
         setCartItems(cartData)
-
-
     }
     const navigate = useNavigate();
     const addtoCart = (itemId, size) => {
@@ -42,6 +44,25 @@ export const ShopContextProvider = ({ children }) => {
         // Update the cart items state
         setCartItems(cartData);
     };
+    const getProducts = async ()=>{
+
+        try{
+            const response = await axios.get(backend_url+"/api/product/listproducts");
+           if(response.data.success){
+            // console.log(response.)
+            setProducts(response.data.products)
+           }
+           else{
+            console.log("error happend in getting products !")
+            toast.error("Error in Listing products !")
+           }
+        }
+        catch(err){
+            console.log(err)
+            toast.error(err.message)
+
+        }
+    }
     const getCartCount = () => {
         let count = 0;
         for (let itemId in cartItems) {
@@ -79,11 +100,21 @@ export const ShopContextProvider = ({ children }) => {
         }
         return total;
     }
+    useEffect(()=>{
+       getProducts() ;
+    },[])
+    useEffect(()=>{
+        if(!token && localStorage.getItem("token")){
+            setToken(localStorage.getItem("token"))
+        }
+
+    },[]);
     useEffect(() => {
         console.log(cartItems);
     }, [cartItems]);
     const value = {
-        products, currency, deliveryFee, search, setSearch, showSearch, setShowSearch, cartItems, addtoCart, getCartCount, updateQuanity,getCartAmount,navigate
+        products, currency, deliveryFee, search, setSearch, showSearch, setShowSearch, cartItems, addtoCart, getCartCount, updateQuanity,getCartAmount,navigate,backend_url,setCartItems
+        ,token,setToken
     }
     return <ShopContext.Provider value={value}>
         {children}
