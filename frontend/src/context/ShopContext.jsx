@@ -10,9 +10,9 @@ export const ShopContextProvider = ({ children }) => {
     const deliveryFee = 10;
     const [search, setSearch] = useState("");
     const backend_url = "http://localhost:4000"
-    const [token,setToken] = useState("");
+    const [token, setToken] = useState("");
     const [showSearch, setShowSearch] = useState(false);
-    const [products,setProducts] = useState([]);
+    const [products, setProducts] = useState([]);
     const [cartItems, setCartItems] = useState({});
     const updateQuanity = async (itemId, size, quantity) => {
         let cartData = structuredClone(cartItems);
@@ -44,20 +44,39 @@ export const ShopContextProvider = ({ children }) => {
         // Update the cart items state
         setCartItems(cartData);
     };
-    const getProducts = async ()=>{
+    const getCartItems = async () => {
 
-        try{
-            const response = await axios.get(backend_url+"/api/product/listproducts");
-           if(response.data.success){
-            // console.log(response.)
-            setProducts(response.data.products)
-           }
-           else{
-            console.log("error happend in getting products !")
-            toast.error("Error in Listing products !")
-           }
+        try {
+            console.log("TOken is")
+            console.log(token)
+            console.log("TOken is")
+
+            const cartData1 = await axios.post(backend_url + "/api/cart/getCart", {}, { headers: { token } },);
+            console.log("Indied get Carts")
+            console.log(cartData1)
+            console.log("Indied get Carts")
+
         }
-        catch(err){
+        catch (err) {
+            console.log(err.message)
+
+        }
+    }
+
+    const getProducts = async () => {
+
+        try {
+            const response = await axios.get(backend_url + "/api/product/listproducts");
+            if (response.data.success) {
+                // console.log(response.)
+                setProducts(response.data.products)
+            }
+            else {
+                console.log("error happend in getting products !")
+                toast.error("Error in Listing products !")
+            }
+        }
+        catch (err) {
             console.log(err)
             toast.error(err.message)
 
@@ -70,12 +89,10 @@ export const ShopContextProvider = ({ children }) => {
                 try {
                     if (cartItems[itemId][size] > 0) {
                         count += cartItems[itemId][size];
-
-
                     }
                 }
                 catch (err) {
-
+                    console.log("Error happend at cart Calculations")
                 }
             }
         }
@@ -91,7 +108,7 @@ export const ShopContextProvider = ({ children }) => {
 
                     if (cartItems[items][item] > 0) {
                         total += itemInfo.price * cartItems[items][item]
-                   }
+                    }
                 }
                 catch (er) {
                     console.log(er.message)
@@ -100,21 +117,22 @@ export const ShopContextProvider = ({ children }) => {
         }
         return total;
     }
-    useEffect(()=>{
-       getProducts() ;
-    },[])
-    useEffect(()=>{
-        if(!token && localStorage.getItem("token")){
+    useEffect(() => {
+        getProducts();
+    }, [])
+    useEffect(() => {
+        if (!token && localStorage.getItem("token")) {
             setToken(localStorage.getItem("token"))
         }
+        console.log(token)
 
-    },[]);
+    }, []);
     useEffect(() => {
-        console.log(cartItems);
+        getCartItems()
     }, [cartItems]);
     const value = {
-        products, currency, deliveryFee, search, setSearch, showSearch, setShowSearch, cartItems, addtoCart, getCartCount, updateQuanity,getCartAmount,navigate,backend_url,setCartItems
-        ,token,setToken
+        products, currency, deliveryFee, search, setSearch, showSearch, setShowSearch, cartItems, addtoCart, getCartCount, updateQuanity, getCartAmount, navigate, backend_url, setCartItems
+        , token, setToken
     }
     return <ShopContext.Provider value={value}>
         {children}

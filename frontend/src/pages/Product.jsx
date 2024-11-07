@@ -6,7 +6,7 @@ import { assets } from '../assets/frontend_assets/assets';
 import RelatedProducts from '../components/RelatedProducts';
 
 const Product = () => {
-  const { products, currency,addtoCart } = useContext(ShopContext);
+  const { products, currency, addtoCart } = useContext(ShopContext);
 
   const { productId } = useParams();
   const [productData, setproductData] = useState("");
@@ -70,7 +70,7 @@ const Product = () => {
             </div>
 
           </div>
-          <button className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700' onClick={()=> addtoCart(productData._id,size)}> Add to Cart</button>
+          <button className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700' onClick={() => addtoCart(productData._id, size)}> Add to Cart</button>
           <hr className='mt-8 sm:w-4/5' />
           <div className='flex flex-col gap-1 mt-5 text-sm text-gray-500'>
             <p>Original Product</p>
