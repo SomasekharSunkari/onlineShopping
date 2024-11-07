@@ -5,7 +5,7 @@ import { assets } from '../assets/frontend_assets/assets';
 import CartTotal from '../components/CartTotal';
 
 const Cart = () => {
-  const { products, cartItems, currency, updateQuanity ,navigate} = useContext(ShopContext);
+  const { products, cartItems, currency, updateQuanity, navigate } = useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
 
   useEffect(() => {
@@ -34,8 +34,7 @@ const Cart = () => {
         <div className="flex flex-col">
           {cartData.map((item, index) => {
             const productData = products.find((product) => product._id === item._id);
-            { console.log(productData) }
-
+            console.log(products)
             if (!productData) {
               return null; // or handle the error case
             }
@@ -48,7 +47,7 @@ const Cart = () => {
                 <div className="flex items-start gap-4">
                   <img
                     className="w-16 sm:w-20"
-                    src={productData.image[0]}
+                    src={productData.images[0]}
                     alt="Product"
                   />
                   <div>
@@ -75,11 +74,11 @@ const Cart = () => {
         <div className='w-full sm:w-[450px]'>
           <CartTotal />
           <div className='w-full text-end'>
-                <button className='bg-black text-white px-8 py-3 my-6 cursor-pointer' onClick={()=> navigate("/place-order")}>PROCEED TO CHECKOUT</button>
+            <button className='bg-black text-white px-8 py-3 my-6 cursor-pointer' onClick={() => navigate("/place-order")}>PROCEED TO CHECKOUT</button>
 
-            </div>
+          </div>
         </div>
-        
+
 
 
       </div>
