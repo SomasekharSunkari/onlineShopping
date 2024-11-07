@@ -9,8 +9,8 @@ const Collection = () => {
   const [filterproducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [subcategory, setSubCategory] = useState([]);
-  const [sortType,setSortType] = useState("relevent");
-  const {search,showSearch} = useContext(ShopContext);
+  const [sortType, setSortType] = useState("relevent");
+  const { search, showSearch } = useContext(ShopContext);
   const toggleCategory = (e) => {
     if (category.includes(e.target.value)) {
       setCategory(prev => prev.filter(item => item !== e.target.value))
@@ -20,14 +20,14 @@ const Collection = () => {
     }
   }
 
-  const sortProducts = ()=>{
+  const sortProducts = () => {
     const fpProducts = filterproducts.slice();
-    switch(sortType){
+    switch (sortType) {
       case "low-high":
-        setFilterProducts(fpProducts.sort((a,b)=>a.price - b.price))
+        setFilterProducts(fpProducts.sort((a, b) => a.price - b.price))
         break;
       case "high-low":
-        setFilterProducts(fpProducts.sort((a,b)=> b.price - a.price))
+        setFilterProducts(fpProducts.sort((a, b) => b.price - a.price))
         break;
       default:
         applyFilterstoProducts();
@@ -38,20 +38,20 @@ const Collection = () => {
     console.log(products)
     let productsCopy = products.slice();
 
-    if(showSearch && search){
+    if (showSearch && search) {
       productsCopy = productsCopy.filter(item => item.name.toLowerCase().includes(search.toLowerCase()));
     }
     if (category.length > 0) {
       productsCopy = productsCopy.filter(item => category.includes(item.category
       ))
     }
-      if (subcategory.length > 0) {
-        productsCopy = productsCopy.filter(item => subcategory.includes(item.subCategory
-        ))
+    if (subcategory.length > 0) {
+      productsCopy = productsCopy.filter(item => subcategory.includes(item.subCategory
+      ))
 
-      }
-      setFilterProducts(productsCopy);
-    
+    }
+    setFilterProducts(productsCopy);
+
   }
   const toggleSubCategory = (e) => {
     if (subcategory.includes(e.target.value)) {
@@ -61,13 +61,13 @@ const Collection = () => {
       setSubCategory(prev => [...prev, e.target.value])
     }
   }
-  
+
   useEffect(() => {
     applyFilterstoProducts()
-  }, [category, subcategory,search,showSearch,products])
-  useEffect(()=>{
+  }, [category, subcategory, search, showSearch, products])
+  useEffect(() => {
     sortProducts();
-  },[sortType]);
+  }, [sortType]);
   return (
     <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t'>
       <div className='min-w-60'>
@@ -84,7 +84,7 @@ const Collection = () => {
               <input type="checkbox" className='w-3' value={"Women"} onChange={toggleCategory} /> Women
             </p>
             <p className='flex gap-2'>
-              <input type="checkbox" className='w-3' value={"Kids"} onChange={toggleCategory} /> Kids
+              <input type="checkbox" className='w-3' value={"kids"} onChange={toggleCategory} /> Kids
             </p>
           </div>
 
@@ -112,7 +112,7 @@ const Collection = () => {
 
 
           <Title heading1={"ALL"} heading2={"COLLECTIONS"} />
-          <select onChange={(e)=>setSortType(e.target.value)} className='border-2 border-gray-600 p-2 font-light text-sm'>
+          <select onChange={(e) => setSortType(e.target.value)} className='border-2 border-gray-600 p-2 font-light text-sm'>
             <option value="relevent">Sort by: Relevant</option>
             <option value="low-high">Sort by: Low to High</option>
             <option value="high-low">Sort by: High to Low</option>

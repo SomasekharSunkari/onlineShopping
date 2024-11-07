@@ -25,12 +25,12 @@ const Orders = () => {
       </div>
       <div className='w-full flex flex-col mt-4'>
         {pro.map((item, index) => (
-          <div 
-            className='flex flex-col md:flex-row md:justify-between gap-4 md:items-center border-t border-b py-4' 
+          <div
+            className='flex flex-col md:flex-row md:justify-between gap-4 md:items-center border-t border-b py-4'
             key={index}
           >
             <div className='flex items-center gap-6 text-sm'>
-              <img src={item.image[0]} className='w-16 sm:w-20' alt={item.name} />
+              <img src={item.images[0]} className='w-16 sm:w-20' alt={item.name} />
               <div className='flex flex-col'>
                 <p className='sm:text-base font-medium'>{item.name}</p>
                 <div className='flex items-center gap-3 mt-2 text-base text-gray-500'>
@@ -42,12 +42,12 @@ const Orders = () => {
               </div>
             </div>
             <div className='md:w-1/2 flex justify-between'>
-            <div className='flex items-center gap-2'>
-              <p className='min-w-2 h-2 rounded-full bg-green-500'></p>
-              <p className='text-sm md:text-base'>Ready to Ship</p>
+              <div className='flex items-center gap-2'>
+                <p className='min-w-2 h-2 rounded-full bg-green-500'></p>
+                <p className='text-sm md:text-base'>Ready to Ship</p>
 
-            </div>
-            <button className='border px-4 py-3 text-sm font-medium rounded-sm cursor-pointer'>Track Order</button>
+              </div>
+              <button className='border px-4 py-3 text-sm font-medium rounded-sm cursor-pointer'>Track Order</button>
 
             </div>
           </div>
