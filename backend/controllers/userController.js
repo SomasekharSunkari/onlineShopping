@@ -73,12 +73,15 @@ const adminUser = async (req, res) => {
         const { email, password } = req.body;
         if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
             const token = jwt.sign(email + password, process.env.JWT_SECRET);
-            return res.json({success:true,token:token})
+            return res.json({ success: true, token: token })
+        }
+        else {
+            return res.json({ success: false, message: "Unauthorized" })
         }
     }
     catch (err) {
         console.log(err);
-        return res.json({success:false,message:"Error in admin user Auth !"})
+        return res.json({ success: false, message: "Error in admin user Auth !" })
     }
 
 
