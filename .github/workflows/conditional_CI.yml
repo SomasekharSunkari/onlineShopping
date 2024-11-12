@@ -1,0 +1,21 @@
+name: Conditional_Check
+on: 
+  workflow_dispatch:
+    inputs:
+      proceed:
+        description: 'Enter "yes" to proceed with the job.'
+        required: true
+        default: 'no'
+jobs:
+  conditional-job:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.proceed == 'yes' }}  # This condition will check the input
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run a task if "yes" is entered
+        run: echo "The input was 'yes'. Proceeding with the task."
+
+  
