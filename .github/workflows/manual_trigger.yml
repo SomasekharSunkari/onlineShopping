@@ -1,0 +1,20 @@
+name: Manual Trigger Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      example_input:
+        description: 'Service Type'
+        required: false
+        default: 'default_value'
+
+jobs:
+  example_job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Print input value
+        run: echo "The input value is ${{ github.event.inputs.example_input }}"
