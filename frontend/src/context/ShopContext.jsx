@@ -9,7 +9,7 @@ export const ShopContextProvider = ({ children }) => {
     const currency = "$";
     const deliveryFee = 10;
     const [search, setSearch] = useState("");
-    const backend_url = "http://localhost:4000"
+    const backend_url = "http://localhost:4001"
     const [token, setToken] = useState("");
     const [showSearch, setShowSearch] = useState(false);
     const [products, setProducts] = useState([]);

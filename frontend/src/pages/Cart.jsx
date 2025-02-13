@@ -5,7 +5,7 @@ import { assets } from '../assets/frontend_assets/assets';
 import CartTotal from '../components/CartTotal';
 
 const Cart = () => {
-  const { products, cartItems, currency, updateQuanity, navigate } = useContext(ShopContext);
+  const { products, cartItems, currency, updateQuanity, navigate, getCartAmount } = useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
 
   useEffect(() => {
@@ -23,6 +23,9 @@ const Cart = () => {
     }
     setCartData(tempData);
   }, [cartItems]);
+  if (getCartAmount() <= 0) return <div>
+    Order Somthing to Checkout
+  </div>
 
   return (
     <div>

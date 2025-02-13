@@ -8,19 +8,19 @@ import productRouter from "./routes/productRoutes.js";
 import cartRouter from "./routes/cartRoutes.js";
 
 const app = express()
-const port = process.env.PORT  || 4000
+const port = process.env.PORT || 4001
 connectMongo();
 cloudinaryConnect();
 app.use(express.json())
 app.use(cors());
 
-app.use("/api/user",UserRouter);
-app.use("/api/product",productRouter);
-app.use("/api/cart",cartRouter)
-app.get("/",(req,res)=>{
+app.use("/api/user", UserRouter);
+app.use("/api/product", productRouter);
+app.use("/api/cart", cartRouter)
+app.get("/", (req, res) => {
     res.json("API WORKING ")
 })
 
-app.listen(port,()=>{
+app.listen(port, () => {
     console.log(`Application Runnning on port ${port}`)
 })
